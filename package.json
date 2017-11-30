@@ -4,10 +4,12 @@
     "description": "cnblog spider ",
     "main": "index.js",
     "dependencies": {
-        "async": "^1.5.0",
-        "cheerio": "^0.19.0",
-        "eventproxy": "^0.3.4",
-        "superagent": "^1.4.0"
+        "async": "^2.6.0",
+        "cheerio": "^1.0.0-rc.2",
+        "eventproxy": "^1.0.0",
+        "express": "^4.16.2",
+        "superagent": "^3.8.1",
+        "utility": "^1.13.1"
     },
     "devDependencies": {},
     "scripts": {

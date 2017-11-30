@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        $(document).ready(function () {
+            $("#pa1").click(function () {
+                $.ajax({
+                    URL: "http://manage.js7tv.cn/admin/index.php?m=index",
+                    dataType: "html",
+                    data: {
+                        account: "guoshunan@js7tv.cn",
+                        password: "gsn05746280",
+                        f_code: $("#code").val()
+                    }
+                }).done(function (html) {
+                    debugger;
+                    $("#results").append(html);
+                });
+            })
+        })
+    </script>
+<form action="/" method="POST">
+<input type="hidden" name="account" id="account" value="guoshunan@js7tv.cn ">
+<input type="hidden" name="password" id="password" value="gsn05746280">
+        <img src="/code.png" alt="" srcset="" />
+        <input type="text" name="code" id="code">
+        <input type="submit" value="爬" id="pa">
+    </form>
+</body>
+
+</html>
