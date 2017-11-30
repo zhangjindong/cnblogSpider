@@ -1,61 +1,14 @@
-var eventproxy = require('eventproxy');
-var superagent = require('superagent');
-var cheerio = require('cheerio');
-var url = require('url');
-var async = require('async');
-
-var express = require('express');
-// var multer = require('multer');
-var app = express();
-
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-// app.use(multer()); // for parsing multipart/form-data
-
-app.use(cookieParser());
-var catchFirstUrl = 'http://manage.js7tv.cn/'; //入口页面
-app.use(express.static('public'));
-
-app.get('/code.png', function(req, pres) {
-    var mr = Math.random();
-    superagent.get(catchFirstUrl + "_common/verifyCode.php?" + mr)
-        .accept('png')
-        .end(function(err, res) {
-            pres.send(res.body);
-        });
-});
-//模拟登陆
-app.post('/', function(req, pres) {
-    superagent.post(catchFirstUrl + "admin/index.php?m=index")
-        .send(req.body)
-        .end(function(err, res) {
-            var cookie = res.headers['set-cookie']
-            pareq(req, pres, cookie)
-        });
-});
-app.get('/', function(req, res) {
-    res.send('Hello World!');
-});
-
-var server = app.listen(3000, function() {
-    var host = server.address().address;
-    var port = server.address().port;
-
-    console.log('Example app listening at http://%s:%s', host, port);
-});
-
 exports.start = function start() {
-    console.log("爬虫系统：请登陆http://127.0.0.1:3000/login.html登陆之后开始爬")
-}
-var pareq = function(req, res, cookie) {
-    var cnodeUrl = catchFirstUrl + "admin/index.php?m=index";
+    var eventproxy = require('eventproxy');
+    var superagent = require('superagent');
+    var cheerio = require('cheerio');
+    var url = require('url');
+    var async = require('async');
+
+    var cnodeUrl = 'https://cnodejs.org/';
 
     superagent.get(cnodeUrl)
-        .set("Cookie", cookie[0])
         .end(function(err, res) {
-            debugger;
             if (err) {
                 return console.error(err);
             }
