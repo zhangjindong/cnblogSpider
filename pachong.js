@@ -128,7 +128,7 @@ var pareq = function (req, pres, cookie) {
             infoListUrls = infoListUrls.concat(arr);
         });
         console.log('==========================:');
-        console.dir(infoListUrls);
+        pres.write("<script>console.log('文章总数：" + infoListUrls.length + "')</script>");
         // 正在并发的数量
         var concurrencyInfoCount = 0;
         async.mapLimit(infoListUrls, 5, function (infoUrl, callback) {
