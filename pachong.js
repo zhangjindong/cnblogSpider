@@ -3,7 +3,8 @@ var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
 var async = require('async');
-
+const bfs = 15;
+const pageCount = 20;
 var express = require('express');
 // var multer = require('multer');
 var app = express();
@@ -89,7 +90,7 @@ var pareq = function (req, pres, cookie) {
     var pageListUrl = catchFirstUrl + "admin/data_information.php?op=list&pageno=";
     // 打开内容列表页 供6093页
     var pageListUrls = [];
-    var pageCount = 6095;
+     
     // 先爬10页
     for (let i = 1; i <= pageCount; i++) {
         pageListUrls.push(pageListUrl + i);
@@ -97,10 +98,10 @@ var pareq = function (req, pres, cookie) {
     // 内容列表并发5页，
     // 内容详细页面并发5页；
     var concurrencyCount = 0;
-    async.mapLimit(pageListUrls, 5, function (pListUrl, callback) {
+    async.mapLimit(pageListUrls, bfs, function (pListUrl, callback) {
         concurrencyCount++;
-        pres.write("<script>console.log('内容列表：现在的并发数是 " + concurrencyCount + " ," + pListUrl+"')</script>");
-        console.log('内容列表：现在的并发数是', concurrencyCount);
+        pres.write("<script>console.log('内容列表：并发数是 " + concurrencyCount + " ," + pListUrl+"')</script>");
+        console.log(pListUrl);
         superagent.get(pListUrl)
             .set("Cookie", codeCookie)
             .set("Cookie", cookie)
@@ -127,21 +128,25 @@ var pareq = function (req, pres, cookie) {
         topicUrlss.map(function (arr) {
             infoListUrls = infoListUrls.concat(arr);
         });
+        // topicUrlss[0] ='http://manage.js7tv.cn/admin/data_information.php?op=modify&id=121403' ;
+
         console.log('==========================:');
         pres.write("<script>console.log('文章总数：" + infoListUrls.length + "')</script>");
         // 正在并发的数量
         var concurrencyInfoCount = 0;
-        async.mapLimit(infoListUrls, 5, function (infoUrl, callback) {
+        async.mapLimit(infoListUrls, bfs, function (infoUrl, callback) {
             concurrencyInfoCount++;
             pres.write("<script>console.log('文章内容：现在的并发数是" + concurrencyInfoCount + " ," + infoUrl +"')</script>");
-            console.log('文章内容：现在的并发数是', concurrencyInfoCount);
+            console.log(infoUrl);
             superagent.get(infoUrl)
                 .set("Cookie", codeCookie)
                 .set("Cookie", cookie)
                 .end(function (err, res) {
                     concurrencyInfoCount--;
                     // ep.emit('topic_html', [topicUrl, res.text]);
-                    callback(null, res.text)
+                    if (res && res.text){
+                        callback(null, res.text)
+                    }
                 });
 
         }, function (err, resHTMls) {
