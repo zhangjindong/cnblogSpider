@@ -18,11 +18,12 @@ app.use(bodyParser.urlencoded({
 // app.use(multer()); // for parsing multipart/form-data
 
 app.use(cookieParser());
-var catchFirstUrl = 'http://manage.js7tv.cn/'; //入口页面
 // 静态
 app.use(express.static('public'));
+
 //验证码cookie
 var codeCookie = "";
+var catchFirstUrl = 'http://manage.js7tv.cn/'; //入口页面
 app.get('/code.png', function (req, pres) {
     var mr = Math.random();
     superagent.get(catchFirstUrl + "_common/verifyCode.php?" + mr)
@@ -242,72 +243,4 @@ var pareq = function (req, pres, cookie) {
         });
         // });
     });
-
-
-    function bak() {
-        superagent.get(pageListUrl)
-            .set("Cookie", codeCookie)
-            .set("Cookie", cookie)
-            .end(function (err, resDataInformation) {
-
-                var topicUrls = [];
-                var $ = cheerio.load(resDataInformation.text);
-                $('.ContTxt .styleA  tbody tr').each(function (idx, element) {
-                    debugger;
-                    var $element = $(element).children().eq(1).text();
-                    var href = cnodeUrl + $element.text();
-                    topicUrls.push(href);
-
-                })
-
-                var topicUrls = [];
-
-                var $ = cheerio.load(res.text);
-                $('.styleA tr').each(function (idx, element) {
-                    var $element = $(element).children("td:eq(2)");
-                    var href = url.resolve(cnodeUrl, $element.text());
-                    topicUrls.push(href);
-                });
-
-                // 正在并发的数量
-                console.log(topicUrls.length);
-                var concurrencyCount = 0;
-                async.mapLimit(topicUrls, 5, function (topicUrl, callback) {
-                    concurrencyCount++;
-                    var delay = parseInt((Math.random() * 10000000) % 2000, 10);
-                    console.log('现在的并发数是', concurrencyCount, '，正在抓取的是', topicUrl, '，耗时' + delay + '毫秒');
-                    superagent.get(topicUrl)
-                        .end(function (err, res) {
-                            concurrencyCount--;
-                            console.log('fetch ' + topicUrl + ' successful');
-                            // ep.emit('topic_html', [topicUrl, res.text]);
-                            callback(null, [topicUrl, res.text])
-                        });
-
-                }, function (err, topics) {
-                    // ep.after('topic_html', results.length, function(topics) {
-                    topics = topics.map(function (topicPair) {
-                        var topicUrl = topicPair[0];
-                        var topicHtml = topicPair[1];
-                        var $ = cheerio.load(topicHtml);
-                        return ({
-                            title: $('.topic_full_title').text().trim(),
-                            href: topicUrl,
-                            comment1: $('.reply_content').eq(0).text().trim(),
-                        });
-                    });
-
-                    console.log('final:');
-                    console.log(topics);
-                    // });
-                });
-                // topicUrls.forEach(function(topicUrl) {
-                //     superagent.get(topicUrl)
-                //         .end(function(err, res) {
-                //             console.log('fetch ' + topicUrl + ' successful');
-                //             ep.emit('topic_html', [topicUrl, res.text]);
-                //         });
-                // });
-            });
-    }
 }
