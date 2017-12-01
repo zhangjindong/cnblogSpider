@@ -3,7 +3,7 @@ var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
 var async = require('async');
-const bfs = 15;
+const Occurs = 15;
 const pageCount = 20;
 var express = require('express');
 // var multer = require('multer');
@@ -67,7 +67,7 @@ app.post('/', function (req, pres) {
                 pareq(req, pres, cookie)
             }
         });
-        
+
 });
 // 首页
 app.get('/', function (req, res) {
@@ -90,7 +90,7 @@ var pareq = function (req, pres, cookie) {
     var pageListUrl = catchFirstUrl + "admin/data_information.php?op=list&pageno=";
     // 打开内容列表页 供6093页
     var pageListUrls = [];
-     
+
     // 先爬10页
     for (let i = 1; i <= pageCount; i++) {
         pageListUrls.push(pageListUrl + i);
@@ -98,9 +98,9 @@ var pareq = function (req, pres, cookie) {
     // 内容列表并发5页，
     // 内容详细页面并发5页；
     var concurrencyCount = 0;
-    async.mapLimit(pageListUrls, bfs, function (pListUrl, callback) {
+    async.mapLimit(pageListUrls, Occurs, function (pListUrl, callback) {
         concurrencyCount++;
-        pres.write("<script>console.log('内容列表：并发数是 " + concurrencyCount + " ," + pListUrl+"')</script>");
+        pres.write("<script>console.log('内容列表：并发数是 " + concurrencyCount + " ," + pListUrl + "')</script>");
         console.log(pListUrl);
         superagent.get(pListUrl)
             .set("Cookie", codeCookie)
@@ -134,9 +134,9 @@ var pareq = function (req, pres, cookie) {
         pres.write("<script>console.log('文章总数：" + infoListUrls.length + "')</script>");
         // 正在并发的数量
         var concurrencyInfoCount = 0;
-        async.mapLimit(infoListUrls, bfs, function (infoUrl, callback) {
+        async.mapLimit(infoListUrls, Occurs, function (infoUrl, callback) {
             concurrencyInfoCount++;
-            pres.write("<script>console.log('文章内容：现在的并发数是" + concurrencyInfoCount + " ," + infoUrl +"')</script>");
+            pres.write("<script>console.log('文章内容：现在的并发数是" + concurrencyInfoCount + " ," + infoUrl + "')</script>");
             console.log(infoUrl);
             superagent.get(infoUrl)
                 .set("Cookie", codeCookie)
@@ -144,7 +144,7 @@ var pareq = function (req, pres, cookie) {
                 .end(function (err, res) {
                     concurrencyInfoCount--;
                     // ep.emit('topic_html', [topicUrl, res.text]);
-                    if (res && res.text){
+                    if (res && res.text) {
                         callback(null, res.text)
                     }
                 });
