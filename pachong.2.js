@@ -3,12 +3,10 @@ var superagent = require('superagent');
 var cheerio = require('cheerio');
 var url = require('url');
 var async = require('async');
-var sql = require("./sql");
 const Occurs = 15;
-const pageCount = 3;
+const pageCount = 20;
 // 并发保存数据的条数
 const saveCount = 500;
-const tableName = "js7tvinformation";
 var express = require('express');
 // var multer = require('multer');
 var app = express();
@@ -156,7 +154,6 @@ var pareq = function(req, pres, cookie) {
 
         }, function(err, resHTMls) {
             // ep.after('topic_html', results.length, function(topics) {
-            /*
             resHTMls.map(function(resHTMl) {
                 var $ = cheerio.load(resHTMl);
                 var form = $("#dataform");
@@ -240,160 +237,10 @@ var pareq = function(req, pres, cookie) {
                 pres.write("<li>" + info['id_modify'] + ":::" + info['title'] + "</li>");
 
             });
-            */
-            //先清空原始数据，再500条一插入一批数据
-            var request = new sql.sqlserver.connect(sql.config).then(pool => {
-                return pool.request().query("IF EXISTS (      SELECT  TABLE_NAME FROM INFORMATION_SCHEMA.TABLES      WHERE   TABLE_NAME = '[" + tableName + "]')  DROP TABLE  [" + tableName + "]")
-            }).then(result => {
-                console.log("248")
-                    //装入table 中的行数，500行执行一次插入
-                var countLoad = 0;
-                var infos = [];
-                var filds = ["author",
-                    "check_filter",
-                    "content",
-                    "content_author",
-                    "custom_tags",
-                    "datetime",
-                    "describe",
-                    "editorValue",
-                    "id_group",
-                    "id_modify",
-                    "id_navi_tag",
-                    "id_tags[11]",
-                    "id_tags[13]",
-                    "id_tags[14]",
-                    "id_tags[16]",
-                    "id_tags[17]",
-                    "id_tags[18]",
-                    "id_tags[19]",
-                    "id_tags[20]",
-                    "id_tags[21]",
-                    "id_tags[22]",
-                    "id_tags[23]",
-                    "id_tags[24]",
-                    "id_tags[25]",
-                    "id_tags[26]",
-                    "id_tags[27]",
-                    "id_tags[28]",
-                    "id_tags[29]",
-                    "id_tags[5]",
-                    "id_tags[6]",
-                    "id_type",
-                    "images_alt[]",
-                    "images_desb[]",
-                    "images_index[]",
-                    "images_page",
-                    "images_url[]",
-                    "link",
-                    "media",
-                    "periods",
-                    "pic_upload",
-                    "pic_upload_id",
-                    "programNO",
-                    "recommend_status",
-                    "record",
-                    "show_site",
-                    "show_site[5]",
-                    "show_site[6",
-                    "show_site[11]",
-                    "show_site[13]",
-                    "show_site[14]",
-                    "show_site[16]",
-                    "show_site[17]",
-                    "show_site[18]",
-                    "show_site[19]",
-                    "show_site[20]",
-                    "show_site[21]",
-                    "show_site[22]",
-                    "show_site[23]",
-                    "show_site[24]",
-                    "show_site[25]",
-                    "show_site[26]",
-                    "show_site[27]",
-                    "show_site[28]",
-                    "show_site[29]",
-                    "status",
-                    "summary",
-                    "time_char",
-                    "timing",
-                    "title",
-                    "title_short",
-                    "verify",
-                    "video"
-                ];
-                // 循环解析resHTML中的域值
-                async.mapLimit(resHTMls, saveCount, function(resHTMl, callback) {
-                    countLoad++;
-                    var $ = cheerio.load(resHTMl);
-                    var form = $("#dataform");
-                    var info = {};
-                    filds.map(function(fild) {
-                        var fildObj = form.find("[name='" + fild + "']");
-                        if (fildObj.length == 0) {
-                            info[fild] = "";
-                        } else if (fildObj.length == 1) {
-                            info[fild] = $(fildObj).val() || $(fildObj).html()
-                        } else {
-                            info[fild] = fildObj.map(function(i, dom) {
-                                return $(this).val() || $(this).html()
-                            }).get().join();
-                        }
-                    })
-                    infos[infos.length] = info;
-                    if (resHTMls.length == countLoad || countLoad == 500) {
 
-                        // 每500条数据执行一次插入操作
-                        sql.sqlserver.close()
-                        var table = new sql.sqlserver.Table(tableName);
-                        table.create = true;
-                        filds.map(function(fild) {
-                            table.columns.add(fild, sql.sqlserver.VarChar(sql.sqlserver.MAX), { nullable: true });
-                        });
-                        // table.columns.add('codeid', sql.sqlserver.NVarChar(50), { nullable: true });
-                        // table.columns.add('name', sql.sqlserver.NVarChar(50), { nullable: true });
-                        // table.columns.add('pwd', sql.sqlserver.VarChar(200), { nullable: true });
-                        // table.rows.add('1001', '张1', 'jjasdfienf1');
-                        // table.rows.add('1002', '张2', 'jjasdfienf2');
-                        infos.map(function(info) {
-                            var infoarr = (filds.map(function(fild) {
-                                return info[fild];
-                            }));
-                            table.rows.add.apply(table.rows, infoarr);
-                        });
-                        sql.bulkInsert(table, function(error, rowcount) {
-                            sql.sqlserver.close();
-                            if (error) {
-                                console.log(error.name, error.message)
-                            } else {
-                                console.log("插入数据：" + rowcount + "条");
-
-                                pres.write("插入数据：" + rowcount + "条");
-                                // sql.query("SELECT Name FROM dong_UserInfoTest ", function(error, recordsets, affected) {
-                                //     // error:错误消息 recordsets:查询的结果 affected
-                                //     if (error) {
-                                //         console.log(error);
-                                //     } else {
-                                //         debugger;
-                                //         console.log(JSON.stringify(recordsets.recordset))
-                                //     }
-                                // });
-                            }
-                        });
-                        countLoad = 0;
-                        infos = undefined;
-                        infos = [];
-                    }
-
-
-                }, function(err, resHTMls) {
-
-                    pres.write("</ol>");
-                    pres.write("<script>console.log('爬虫结束')</script>");
-                    pres.end();
-                    // });
-                });
-            });
+            pres.write("</ol>");
+            pres.write("<script>console.log('爬虫结束')</script>");
+            pres.end();
             // });
         });
         // });

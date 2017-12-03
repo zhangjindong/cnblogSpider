@@ -1,3 +1,6 @@
 var server = require("./pachong");
-
-server.start();
+var testsql = require("./testsql");
+var testsync = require("./testasync");
+// server.start();
+testsql.start();
+// testsync.start();
