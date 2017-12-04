@@ -28,17 +28,17 @@ app.use(express.static('public'));
 //验证码cookie
 var codeCookie = "";
 var catchFirstUrl = 'http://manage.js7tv.cn/'; //入口页面
-app.get('/code.png', function (req, pres) {
+app.get('/code.png', function(req, pres) {
     var mr = Math.random();
     superagent.get(catchFirstUrl + "_common/verifyCode.php?" + mr)
         .accept('png')
-        .end(function (err, res) {
+        .end(function(err, res) {
             codeCookie = res.headers['set-cookie']
             pres.send(res.body);
         });
 });
 //模拟登陆
-app.post('/', function (req, pres) {
+app.post('/', function(req, pres) {
     pres.writeHead(200, {
         'Content-Type': 'text/html;charset=utf-8'
     });
@@ -54,14 +54,14 @@ app.post('/', function (req, pres) {
         .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
         // .set('Cookie', 'imooc_uuid=15f58ae7-2d00-4fc1-9801-1a78dde18bc2; imooc_isnew_ct=1482830692; loginstate=1; apsid=IxYWQwNTcwY2RiNDY2YWM3Z7999,1483688200,1483949602,1484013932; Hm_lpvt_f0cfcccd7b1393990c78efdeebff3968=1484034431; cvde=587441144e831-67; IMCDNS=1')
 
-        .set("Cookie", codeCookie)
+    .set("Cookie", codeCookie)
         .set('Host', 'manage.js7tv.cn')
         .set('Origin', 'http://manage.js7tv.cn')
         // .set('Referer', 'http://manage.js7tv.cn/admin/index.php?m=index')
         .set('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36')
         .set('X-Requested-With', 'XMLHttpRequest')
         .send(req.body)
-        .end(function (err, res) {
+        .end(function(err, res) {
             var result = JSON.parse(res.text);
             console.dir(result);
             if (!result.result) {
@@ -75,11 +75,11 @@ app.post('/', function (req, pres) {
 
 });
 // 首页
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.send('Hello World!');
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(3000, function() {
     var host = server.address().address;
     var port = server.address().port;
 
@@ -89,7 +89,7 @@ var server = app.listen(3000, function () {
 exports.start = function start() {
     console.log("爬虫系统：请登陆http://127.0.0.1:3000/login.html登陆之后开始爬")
 }
-var pareq = function (req, pres, cookie) {
+var pareq = function(req, pres, cookie) {
 
     var cnodeUrl = catchFirstUrl + "admin/data_information.php?op=modify&id=";
     var pageListUrl = catchFirstUrl + "admin/data_information.php?op=list&pageno=";
@@ -103,19 +103,19 @@ var pareq = function (req, pres, cookie) {
     // 内容列表并发5页，
     // 内容详细页面并发5页；
     var concurrencyCount = 0;
-    async.mapLimit(pageListUrls, Occurs, function (pListUrl, callback) {
+    async.mapLimit(pageListUrls, Occurs, function(pListUrl, callback) {
         concurrencyCount++;
         pres.write("<script>console.log('内容列表：并发数是 " + concurrencyCount + " ," + pListUrl + "')</script>");
         console.log(pListUrl);
         superagent.get(pListUrl)
             .set("Cookie", codeCookie)
             .set("Cookie", cookie)
-            .end(function (err, resDataInformation) {
+            .end(function(err, resDataInformation) {
                 // 内容列表并发5页，
                 concurrencyCount--;
                 var topicUrls = [];
                 var $ = cheerio.load(resDataInformation.text);
-                $('.ContTxt .styleA  tbody tr').each(function (idx, element) {
+                $('.ContTxt .styleA  tbody tr').each(function(idx, element) {
 
                     var $element = $(element).children().eq(1);
                     var href = cnodeUrl + $element.text();
@@ -127,10 +127,10 @@ var pareq = function (req, pres, cookie) {
                 callback(null, topicUrls)
             });
 
-    }, function (err, topicUrlss) {
+    }, function(err, topicUrlss) {
         var infoListUrls = [];
         // ep.after('topic_html', results.length, function(topics) {
-        topicUrlss.map(function (arr) {
+        topicUrlss.map(function(arr) {
             infoListUrls = infoListUrls.concat(arr);
         });
         // topicUrlss[0] ='http://manage.js7tv.cn/admin/data_information.php?op=modify&id=121403' ;
@@ -139,14 +139,14 @@ var pareq = function (req, pres, cookie) {
         pres.write("<script>console.log('文章总数：" + infoListUrls.length + "')</script>");
         // 正在并发的数量
         var concurrencyInfoCount = 0;
-        async.mapLimit(infoListUrls, Occurs, function (infoUrl, callback) {
+        async.mapLimit(infoListUrls, Occurs, function(infoUrl, callback) {
             concurrencyInfoCount++;
             pres.write("<script>console.log('文章内容：现在的并发数是" + concurrencyInfoCount + " ," + infoUrl + "')</script>");
             console.log(infoUrl);
             superagent.get(infoUrl)
                 .set("Cookie", codeCookie)
                 .set("Cookie", cookie)
-                .end(function (err, res) {
+                .end(function(err, res) {
                     concurrencyInfoCount--;
                     // ep.emit('topic_html', [topicUrl, res.text]);
                     if (res && res.text) {
@@ -154,7 +154,7 @@ var pareq = function (req, pres, cookie) {
                     }
                 });
 
-        }, function (err, resHTMls) {
+        }, function(err, resHTMls) {
             // ep.after('topic_html', results.length, function(topics) {
             /*
             resHTMls.map(function(resHTMl) {
@@ -246,7 +246,7 @@ var pareq = function (req, pres, cookie) {
                 return pool.request().query("IF EXISTS (      SELECT  TABLE_NAME FROM INFORMATION_SCHEMA.TABLES      WHERE   TABLE_NAME = '[" + tableName + "]')  DROP TABLE  [" + tableName + "]")
             }).then(result => {
                 console.log("248")
-                //装入table 中的行数，500行执行一次插入
+                    //装入table 中的行数，500行执行一次插入
                 var countLoad = 0;
                 var infos = [];
                 var filds = ["author",
@@ -286,14 +286,14 @@ var pareq = function (req, pres, cookie) {
                     "video"
                 ];
                 // 循环解析resHTML中的域值
-                async.mapLimit(resHTMls, saveCount, function (resHTMl, callback) {
+                async.mapLimit(resHTMls, saveCount, function(resHTMl, callback) {
                     countLoad++;
                     var $ = cheerio.load(resHTMl);
                     var form = $("#dataform");
                     var info = {};
-                    filds.map(function (fild) {
+                    filds.map(function(fild) {
                         var fildObj = form.find("[name^='" + fild + "']");
-                        fildObj.map(function (i, dom) {
+                        fildObj.map(function(i, dom) {
                             if ($(dom).attr("name").indexOf("]") > -1 && (!info[fild])) {
                                 info[fild] = [];
                             }
@@ -311,7 +311,7 @@ var pareq = function (req, pres, cookie) {
                             }
                         })
                     });
-                    filds.map(function (fild) {
+                    filds.map(function(fild) {
                         if (info[fild] instanceof Array) {
                             info[fild] = info[fild].join();
                         }
@@ -331,18 +331,54 @@ var pareq = function (req, pres, cookie) {
                             nullable: false,
                             primary: true
                         });
-                        filds.map(function (fild) {
-                                table.columns.add(fild, sql.sqlserver.VarChar, {
-                                    nullable: true
-                                });
+                        filds.map(function(fild) {
+                            table.columns.add(fild, sql.sqlserver.VarChar, {
+                                nullable: true
+                            });
                         });
                         // table.columns.add('codeid', sql.sqlserver.NVarChar(50), { nullable: true });
                         // table.columns.add('name', sql.sqlserver.NVarChar(50), { nullable: true });
                         // table.columns.add('pwd', sql.sqlserver.VarChar(200), { nullable: true });
                         // table.rows.add('1001', '张1', 'jjasdfienf1');
                         // table.rows.add('1002', '张2', 'jjasdfienf2');
-                        infos.map(function (info) {
-                            var infoarr = (filds.map(function (fild) {
+                        table.rows.add("122592",
+                            "张力洋",
+                            "0",
+                            "张小军 程佳兴",
+                            "张小军 程佳兴",
+                            "军营,青春,橄榄绿",
+                            "2017-12-04 21:57:34",
+                            '<p>　　军营再响驼铃曲，战友惜别泪两行。11月30日，武警甘肃省森林总队张掖市支队23名战士脱下戎装退出现役，踏上人生新征程。</p><p>　　11月退伍季，该支队23名战士将戴上“退伍光荣”的大红花踏上返乡的列车，回忆入伍时曾戴大红花离家远行的场景还历历在目，此时此刻再戴上承载着青春的大红花将要踏上归途，心里的滋味却与入伍时截然不同，从军路上的酸甜苦辣，寒冬中站岗执勤、酷暑中摸爬滚打……一幕幕、一件件，点点滴滴恍如昨日。铁打的营盘流水的兵，他们5年、8年，12年不等的军旅生涯即将在这一刻尘封，把青春最宝贵的岁月留在了军营，带走的是最美丽的橄榄绿印记。</p><p style="text - align: right;">责编：张力洋<br/></p>',
+                            "",
+                            "0",
+                            "122592",
+                            "18",
+                            ",,,,,,,,,,,,,,,,,,,,,22222,,,,,,,,",
+                            "2",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "中国军视网",
+                            "0000-00-00",
+                            "http://files.js7tv.cn/www/images/2017-12/04/115_59261512395845.jpg",
+                            "",
+                            "0",
+                            "1",
+                            '\n\t\t\t\t\t\t<option value="">&#x6682;&#x65E0;</option>\n\t\t\t\t\t',
+                            ",,,,,,,,,,,,,,,,,,,,,99,,,,,,,,,99",
+                            "-1",
+                            "　　军营再响驼铃曲，战友惜别泪两行。11月30日，武警甘肃省森林总队张掖市支队23名战士脱下戎装退出现役，踏上人生新征程。",
+                            "",
+                            "2017-12-04 21:57:34",
+                            "青春留在军营 带走最美的橄榄绿印",
+                            "青春留在军营 带走最美橄榄绿印",
+                            "0",
+                            "")
+                        infos.map(function(info) {
+                            var infoarr = (filds.map(function(fild) {
                                 // console.log([info["show_site[13]"], info["show_site[14]"], info["show_site[16]"], info["show_site[11]"]])
                                 return info[fild];
                             }));
@@ -350,7 +386,7 @@ var pareq = function (req, pres, cookie) {
 
                             table.rows.add.apply(table.rows, infoarr);
                         });
-                        sql.bulkInsert(table, function (error, rowcount) {
+                        sql.bulkInsert(table, function(error, rowcount) {
                             sql.sqlserver.close();
                             if (error) {
                                 console.log(error.name, error.message)
@@ -375,7 +411,7 @@ var pareq = function (req, pres, cookie) {
                     }
 
 
-                }, function (err, resHTMls) {
+                }, function(err, resHTMls) {
 
                     pres.write("</ol>");
                     pres.write("<script>console.log('爬虫结束')</script>");
