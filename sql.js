@@ -164,7 +164,7 @@ sql.query = function(sqltext, func) {
  * 数据表的定义如下：
  var table=new sql.sqlserver.Table('UserInfoTest');
  table.create=true;
- table.columns.add('name',sqlHelper.sqlserver.NVarChar(50),{nullable:true});
+ table.columns.add('name',sqlHelper.sqlserver.NVarChar(50),{nullable:true,primary: true});
  table.columns.add('pwd',sqlHelper.sqlserver.VarChar(200),{nullable:true});
  table.rows.add('张1','jjasdfienf');
  table.rows.add('张2','jjasdfienf');

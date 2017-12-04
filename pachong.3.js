@@ -260,13 +260,31 @@ var pareq = function (req, pres, cookie) {
                     "id_group",
                     "id_modify",
                     "id_navi_tag",
-                    "id_tags",
+                    "id_tags[11]",
+                    "id_tags[13]",
+                    "id_tags[14]",
+                    "id_tags[16]",
+                    "id_tags[17]",
+                    "id_tags[18]",
+                    "id_tags[19]",
+                    "id_tags[20]",
+                    "id_tags[21]",
+                    "id_tags[22]",
+                    "id_tags[23]",
+                    "id_tags[24]",
+                    "id_tags[25]",
+                    "id_tags[26]",
+                    "id_tags[27]",
+                    "id_tags[28]",
+                    "id_tags[29]",
+                    "id_tags[5]",
+                    "id_tags[6]",
                     "id_type",
-                    "images_alt",
-                    "images_desb",
-                    "images_index",
+                    "images_alt[]",
+                    "images_desb[]",
+                    "images_index[]",
                     "images_page",
-                    "images_url",
+                    "images_url[]",
                     "link",
                     "media",
                     "periods",
@@ -275,7 +293,25 @@ var pareq = function (req, pres, cookie) {
                     "programNO",
                     "recommend_status",
                     "record",
-                    "show_site",
+                    "show_site[5]",
+                    "show_site[6]",
+                    "show_site[11]",
+                    "show_site[13]",
+                    "show_site[14]",
+                    "show_site[16]",
+                    "show_site[17]",
+                    "show_site[18]",
+                    "show_site[19]",
+                    "show_site[20]",
+                    "show_site[21]",
+                    "show_site[22]",
+                    "show_site[23]",
+                    "show_site[24]",
+                    "show_site[25]",
+                    "show_site[26]",
+                    "show_site[27]",
+                    "show_site[28]",
+                    "show_site[29]",
                     "status",
                     "summary",
                     "time_char",
@@ -292,33 +328,17 @@ var pareq = function (req, pres, cookie) {
                     var form = $("#dataform");
                     var info = {};
                     filds.map(function (fild) {
-                        var fildObj = form.find("[name^='" + fild + "']");
-                        fildObj.map(function (i, dom) {
-                            if ($(dom).attr("name").indexOf("]") > -1 && (!info[fild])) {
-                                info[fild] = [];
-                            }
-                            if ($(dom).attr("name").indexOf("[]") > 0) {
-                                info[fild][info[fild].length] = $(this).val() || $(this).html();
-                            } else if ($(dom).attr("name").indexOf("[") > 0) {
-                                info[fild][+($(dom).attr("name").match(/\[\S*\]/)[0].slice(1, -1))] = $(this).val() || $(this).html();
-                            } else {
-                                if (info[fild] && (info[fild] instanceof Array)) {
-                                    info[fild][info[fild].length] = $(this).val() || $(this).html();
-                                } else {
-                                    if (!info[fild])
-                                        info[fild] = $(this).val() || $(this).html()
-                                }
-                            }
-                        })
-                    });
-                    filds.map(function (fild) {
-                        if (info[fild] instanceof Array) {
-                            info[fild] = info[fild].join();
+                        var fildObj = form.find("[name='" + fild + "']");
+                        if (fildObj.length == 0) {
+                            info[fild] = null;
+                        } else if (fildObj.length == 1) {
+                            info[fild] = $(fildObj).val() || $(fildObj).html()
+                        } else {
+                            info[fild] = fildObj.map(function (i, dom) {
+                                return $(this).val() || $(this).html()
+                            }).get().join();
                         }
-                        if (info[fild] == undefined) {
-                            info[fild] = "";
-                        }
-                    });
+                    })
                     infos[infos.length] = info;
                     if (resHTMls.length == countLoad || countLoad == 500) {
 
@@ -326,15 +346,15 @@ var pareq = function (req, pres, cookie) {
                         sql.sqlserver.close()
                         var table = new sql.sqlserver.Table(tableName);
                         table.create = true;
-
-                        table.columns.add("idkey", sql.sqlserver.NVarChar(50), {
-                            nullable: false,
-                            primary: true
-                        });
                         filds.map(function (fild) {
-                                table.columns.add(fild, sql.sqlserver.VarChar, {
-                                    nullable: true
-                                });
+                            if(fild.indexOf('[')>-1){
+                                fild = '[' + fild+']';
+                            }
+                            console.log(fild)
+                            table.columns.add(fild, sql.sqlserver.Text, {
+                                nullable: true
+                            });
+                           
                         });
                         // table.columns.add('codeid', sql.sqlserver.NVarChar(50), { nullable: true });
                         // table.columns.add('name', sql.sqlserver.NVarChar(50), { nullable: true });
@@ -346,8 +366,6 @@ var pareq = function (req, pres, cookie) {
                                 // console.log([info["show_site[13]"], info["show_site[14]"], info["show_site[16]"], info["show_site[11]"]])
                                 return info[fild];
                             }));
-                            infoarr.unshift(info["id_modify"]);
-
                             table.rows.add.apply(table.rows, infoarr);
                         });
                         sql.bulkInsert(table, function (error, rowcount) {

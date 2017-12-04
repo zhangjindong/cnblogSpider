@@ -1,5 +1,5 @@
 {
-    "name": "cnblog Spider",
+    "name": "cnblogSpider",
     "version": "1.0.0",
     "description": "cnblog spider ",
     "main": "index.js",
