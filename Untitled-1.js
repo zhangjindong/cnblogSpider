@@ -1,0 +1,304 @@
+[{
+    "name": "id_modify",
+    "value": "122729"
+}, {
+    "name": "id_type",
+    "value": "2"
+}, {
+    "name": "id_navi_tag",
+    "value": "8"
+}, {
+    "name": "periods",
+    "value": "0000-00-00"
+}, {
+    "name": "programNO",
+    "value": "0"
+}, {
+    "name": "title",
+    "value": "弯弓搭箭射天狼 长剑作笔画九天"
+}, {
+    "name": "title_short",
+    "value": "弯弓搭箭射天狼 长剑作笔画九天"
+}, {
+    "name": "link",
+    "value": ""
+}, {
+    "name": "recommend_status",
+    "value": "4"
+}, {
+    "name": "id_tags[5]",
+    "value": ""
+}, {
+    "name": "show_site[5]",
+    "value": ""
+}, {
+    "name": "id_tags[6]",
+    "value": ""
+}, {
+    "name": "show_site[6]",
+    "value": ""
+}, {
+    "name": "id_tags[11]",
+    "value": ""
+}, {
+    "name": "show_site[11]",
+    "value": ""
+}, {
+    "name": "id_tags[13]",
+    "value": "279"
+}, {
+    "name": "show_site[13]",
+    "value": "99"
+}, {
+    "name": "id_tags[14]",
+    "value": ""
+}, {
+    "name": "show_site[14]",
+    "value": ""
+}, {
+    "name": "id_tags[16]",
+    "value": ""
+}, {
+    "name": "show_site[16]",
+    "value": ""
+}, {
+    "name": "id_tags[17]",
+    "value": ""
+}, {
+    "name": "show_site[17]",
+    "value": ""
+}, {
+    "name": "id_tags[18]",
+    "value": ""
+}, {
+    "name": "show_site[18]",
+    "value": ""
+}, {
+    "name": "id_tags[19]",
+    "value": ""
+}, {
+    "name": "show_site[19]",
+    "value": ""
+}, {
+    "name": "id_tags[20]",
+    "value": ""
+}, {
+    "name": "show_site[20]",
+    "value": ""
+}, {
+    "name": "id_tags[21]",
+    "value": ""
+}, {
+    "name": "show_site[21]",
+    "value": ""
+}, {
+    "name": "id_tags[22]",
+    "value": ""
+}, {
+    "name": "show_site[22]",
+    "value": ""
+}, {
+    "name": "id_tags[23]",
+    "value": ""
+}, {
+    "name": "show_site[23]",
+    "value": ""
+}, {
+    "name": "id_tags[24]",
+    "value": ""
+}, {
+    "name": "show_site[24]",
+    "value": ""
+}, {
+    "name": "id_tags[25]",
+    "value": ""
+}, {
+    "name": "show_site[25]",
+    "value": ""
+}, {
+    "name": "id_tags[26]",
+    "value": ""
+}, {
+    "name": "show_site[26]",
+    "value": ""
+}, {
+    "name": "id_tags[27]",
+    "value": ""
+}, {
+    "name": "show_site[27]",
+    "value": ""
+}, {
+    "name": "id_tags[28]",
+    "value": ""
+}, {
+    "name": "show_site[28]",
+    "value": ""
+}, {
+    "name": "id_tags[29]",
+    "value": ""
+}, {
+    "name": "show_site[29]",
+    "value": ""
+}, {
+    "name": "show_site",
+    "value": "99"
+}, {
+    "name": "media",
+    "value": "解放军报"
+}, {
+    "name": "content_author",
+    "value": ""
+}, {
+    "name": "custom_tags",
+    "value": "强军路上"
+}, {
+    "name": "author",
+    "value": "樊家臻"
+}, {
+    "name": "pic_upload_id",
+    "value": ""
+}, {
+    "name": "pic_upload",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/145_39631512461225.jpg"
+}, {
+    "name": "video",
+    "value": ""
+}, {
+    "name": "time_char",
+    "value": ""
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461232435105_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461232435105_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461232435105_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "1"
+}, {
+    "name": "images_page",
+    "value": "1"
+}, {
+    "name": "images_desb[]",
+    "value": "　弯弓搭箭射天狼     作者 张建刚"
+}, {
+    "name": "images_alt[]",
+    "value": "　弯弓搭箭射天狼     作者 张建刚"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233140849_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233140849_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233140849_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "2"
+}, {
+    "name": "images_desb[]",
+    "value": "拼了 作者 　杨再新"
+}, {
+    "name": "images_alt[]",
+    "value": "拼了 作者 　杨再新"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233853544_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233853544_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233853544_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "3"
+}, {
+    "name": "images_desb[]",
+    "value": "　　长剑作笔画九天（组照） 作者 王晓予"
+}, {
+    "name": "images_alt[]",
+    "value": "　　长剑作笔画九天（组照） 作者 王晓予"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233246504_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233246504_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233246504_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "4"
+}, {
+    "name": "images_desb[]",
+    "value": "　　夜鹰呼啸震长空 作者 　杨 盼"
+}, {
+    "name": "images_alt[]",
+    "value": "　　夜鹰呼啸震长空 作者 　杨 盼"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233755557_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233755557_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233755557_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "5"
+}, {
+    "name": "images_desb[]",
+    "value": "　　电磁风暴（组照） 作者 　马　　冰"
+}, {
+    "name": "images_alt[]",
+    "value": "　　电磁风暴（组照） 作者 　马　　冰"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233335548_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233335548_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233335548_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "6"
+}, {
+    "name": "images_desb[]",
+    "value": "　　我为祖国筑长城 作者　 朱　　伟"
+}, {
+    "name": "images_alt[]",
+    "value": "　　我为祖国筑长城 作者　 朱　　伟"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233851007_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233851007_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233851007_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "7"
+}, {
+    "name": "images_desb[]",
+    "value": "　　潜机协同 作者 　周演成"
+}, {
+    "name": "images_alt[]",
+    "value": "　　潜机协同 作者 　周演成"
+}, {
+    "name": "images_url[]",
+    "value": "http://files.js7tv.cn/www/images/2017-12/05/1512461233889476_big.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233889476_small.jpg|http://files.js7tv.cn/www/images/2017-12/05/1512461233889476_big.jpg"
+}, {
+    "name": "images_index[]",
+    "value": "8"
+}, {
+    "name": "images_desb[]",
+    "value": "朱日和：红蓝对抗战正酣（组照） 作者 　张坤平"
+}, {
+    "name": "images_alt[]",
+    "value": "朱日和：红蓝对抗战正酣（组照） 作者 　张坤平"
+}, {
+    "name": "summary",
+    "value": "　11月下旬开始，由中央军委政治工作部宣传局和解放军报社联合主办的“强军路上新风采”全军摄影展，在中国人民革命军事博物馆展出。"
+}, {
+    "name": "timing",
+    "value": "2017-12-05 16:08:43"
+}, {
+    "name": "record",
+    "value": ""
+}, {
+    "name": "status",
+    "value": "70"
+}, {
+    "name": "check_filter",
+    "value": "0"
+}, {
+    "name": "verify",
+    "value": "0"
+}, {
+    "name": "datetime",
+    "value": "2017-12-05 16:08:43"
+}, {
+    "name": "describe",
+    "value": ""
+}, {
+    "name": "content",
+    "value": ""
+}, {
+    "name": "describe",
+    "value": "<p>　　11月下旬开始，由中央军委政治工作部宣传局和解放军报社联合主办的“强军路上新风采”全军摄影展，在中国人民革命军事博物馆展出。展览充分展示了党的十八大以来国防和军队建设取得的历史性成就和发生的历史性变革，生动反映了全军部队广大官兵在习近平强军思想指引下，认真学习贯彻党的十九大精神，以强烈的责任担当履行新时代使命任务的昂扬风貌。<br/>　　<br/>　　影展在社会各界引起强烈反响，各界群众和部队官兵踊跃参观。新时代革命军人不忘初心、砥砺奋进的新风采令人振奋，人民军队强军兴军的伟大成就令人鼓舞。观众们在留言簿上写满感言，“看影展照片，倾听强军足音，感受人民军队崭新成就”“新时代新气象，为人民军队点赞”……驻京部队一位战士激动地写道：“中国梦强军梦，就是我的诗和远方！”<br/>　　<br/>　　责编：樊家臻</p>"
+}, {
+    "name": "editorValue",
+    "value": "<p>　　11月下旬开始，由中央军委政治工作部宣传局和解放军报社联合主办的“强军路上新风采”全军摄影展，在中国人民革命军事博物馆展出。展览充分展示了党的十八大以来国防和军队建设取得的历史性成就和发生的历史性变革，生动反映了全军部队广大官兵在习近平强军思想指引下，认真学习贯彻党的十九大精神，以强烈的责任担当履行新时代使命任务的昂扬风貌。<br/>　　<br/>　　影展在社会各界引起强烈反响，各界群众和部队官兵踊跃参观。新时代革命军人不忘初心、砥砺奋进的新风采令人振奋，人民军队强军兴军的伟大成就令人鼓舞。观众们在留言簿上写满感言，“看影展照片，倾听强军足音，感受人民军队崭新成就”“新时代新气象，为人民军队点赞”……驻京部队一位战士激动地写道：“中国梦强军梦，就是我的诗和远方！”<br/>　　<br/>　　责编：樊家臻</p>"
+}, {
+    "name": "content",
+    "value": "<p>　　11月下旬开始，由中央军委政治工作部宣传局和解放军报社联合主办的“强军路上新风采”全军摄影展，在中国人民革命军事博物馆展出。展览充分展示了党的十八大以来国防和军队建设取得的历史性成就和发生的历史性变革，生动反映了全军部队广大官兵在习近平强军思想指引下，认真学习贯彻党的十九大精神，以强烈的责任担当履行新时代使命任务的昂扬风貌。<br/>　　<br/>　　影展在社会各界引起强烈反响，各界群众和部队官兵踊跃参观。新时代革命军人不忘初心、砥砺奋进的新风采令人振奋，人民军队强军兴军的伟大成就令人鼓舞。观众们在留言簿上写满感言，“看影展照片，倾听强军足音，感受人民军队崭新成就”“新时代新气象，为人民军队点赞”……驻京部队一位战士激动地写道：“中国梦强军梦，就是我的诗和远方！”<br/>　　<br/>　　责编：樊家臻</p>"
+}]

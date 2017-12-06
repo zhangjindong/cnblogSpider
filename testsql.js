@@ -10,7 +10,7 @@ exports.start = function start() {
         }
     }); */
 
-    const tableName = "js7tvinformation";
+    const tableName = "UserInfoTest";
     var request = new sql.sqlserver.connect(sql.config).then(pool => {
         return pool.request().query("IF EXISTS (      SELECT  TABLE_NAME FROM INFORMATION_SCHEMA.TABLES      WHERE   TABLE_NAME = '[" + tableName + "]')  DROP TABLE  [" + tableName + "]")
     }).then(result => {
@@ -27,18 +27,29 @@ exports.start = function start() {
         ];
         sql.sqlserver.close()
         var table = new sql.sqlserver.Table(tableName);
-        table.database = sql.config.database;
         table.create = true;
         table.columns.add("idkey", sql.sqlserver.NVarChar(50), {
             nullable: false,
             primary: true
         });
-        filds.map(function(fild) {
-            table.columns.add(fild, sql.sqlserver.VarChar(300), {
+        table.columns.add("author", sql.sqlserver.NVarChar, {
+            nullable: true,
+            primary: false
+        });
+        table.columns.add("checkFilter", sql.sqlserver.NVarChar, {
+            nullable: true,
+            primary: false
+        });
+        table.columns.add("idModify", sql.sqlserver.NVarChar, {
+            nullable: true,
+            primary: false
+        });
+       /*  filds.map(function(fild) {
+            table.columns.add(fild, sql.sqlserver.NVarChar, {
                 nullable: true,
                 primary: false
             });
-        });
+        }); */
         infos.map(function(info) {
             var infoarr = (filds.map(function(fild) {
                 // console.log([info["show_site[13]"], info["show_site[14]"], info["show_site[16]"], info["show_site[11]"]])
@@ -49,8 +60,15 @@ exports.start = function start() {
             // table.rows.add.apply(table.rows, infoarr);
             table.rows.add(infoarr[0], infoarr[1], infoarr[2], infoarr[3])
         });
+        table=null
+        var table = new sql.sqlserver.Table(tableName);
+        table.create = true;
+        table.columns.add('name', sql.sqlserver.NVarChar(50), { nullable: true });
+        table.columns.add('pwd', sql.sqlserver.VarChar(200), { nullable: true });
+        table.rows.add('张1', 'jjasdfienf');
+        table.rows.add('张2', 'jjasdfienf');
+        table.rows.add('张3', 'jjasdfienf');
         sql.bulkInsert(table, function(error, rowcount) {
-            debugger;
             sql.sqlserver.close();
             if (error) {
                 console.log(error.name, error.message)

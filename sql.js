@@ -5,10 +5,10 @@ var sql = {};
 
 //连接参数配置
 var config = {
-    user: "websys",
-    password: "dttwebsys",
+    user: "zjd",
+    password: "dttzjd",
     server: "EIIDB1.dtt.cn", // You can use 'localhost\\instance' to connect to named instance
-    database: "ExtjsApp",
+    database: "js7tv",
     stream: false, // You can enable streaming globally
     /*option:{
      encrypt:true //Use this if you're on Windows Azure
